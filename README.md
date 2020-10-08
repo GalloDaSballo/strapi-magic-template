@@ -43,4 +43,11 @@ Alternatively, just use Magic.
 Coming once code is done
 
 ## More
+Plugin Sponsored by
 https://magic.link/
+
+Learn to Code Strapi Plugins:
+https://www.youtube.com/watch?v=r7EdFVSbZSA&t=1s&ab_channel=AlextheEntreprenerd
+
+Get 1-1 Mentoring and Coaching:
+https://calendly.com/alex-entreprenerd/15min
