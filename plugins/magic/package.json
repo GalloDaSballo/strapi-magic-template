@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@buffetjs/core": "^3.3.1",
+    "@magic-sdk/admin": "^1.2.2",
     "styled-components": "^5.2.0"
   },
   "author": {
@@ -16,8 +17,7 @@
     "email": "alex@entreprenerd.xyz",
     "url": "entreprenerd.xyz"
   },
-  "maintainers": [
-  ],
+  "maintainers": [],
   "engines": {
     "node": ">=10.0.0",
     "npm": ">=6.0.0"

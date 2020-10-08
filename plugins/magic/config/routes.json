@@ -3,7 +3,7 @@
     {
       "method": "GET",
       "path": "/settings",
-      "handler": "magic-v1.retrieveSettings",
+      "handler": "magic.retrieveSettings",
       "config": {
         "policies": []
       }
@@ -11,7 +11,7 @@
     {
       "method": "POST",
       "path": "/settings",
-      "handler": "magic-v1.updateSettings",
+      "handler": "magic.updateSettings",
       "config": {
         "policies": []
       }
