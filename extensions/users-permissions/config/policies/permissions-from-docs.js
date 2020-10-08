@@ -1,15 +1,9 @@
 const _ = require('lodash');
 
+//Rename this to permissions.js to use both strapi and magic for authentication
+
 module.exports = async (ctx, next) => {
   let role;
-
-  /** With Magic Changes */
-  try{
-    await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-    } catch (err) {
-    return handleErrors(ctx, err, 'unauthorized');
-  }
-  /** END With Magic Changes */
 
   if (ctx.state.user) {
     // request is already authenticated in a different way
@@ -29,7 +23,14 @@ module.exports = async (ctx, next) => {
         'users-permissions'
       ].services.user.fetchAuthenticatedUser(id);
     } catch (err) {
-        return handleErrors(ctx, err, 'unauthorized');
+        /** With Magic Changes */
+        try{
+            await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
+        } catch (err) {
+            return handleErrors(ctx, err, 'unauthorized');
+        }
+        /** END With Magic Changes */
+
     }
 
     if (!ctx.state.user) {
