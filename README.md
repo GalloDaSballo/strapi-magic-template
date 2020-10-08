@@ -35,7 +35,7 @@ The plugin will expose a service that will verify if the given request belongs t
 The Magic Plugin has a service you can use to verify if the bearer token belongs to a magic link related request.
 
 After installing the plugin, use `loginWithMagic` like so:
-```
+```javascript
 await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
 ```
 
@@ -65,7 +65,7 @@ module.exports = async (ctx, next) => {
 ```
 
 Add the following code on line 5
-```
+```javascript
   /** With Magic Changes */
   try{
     await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
@@ -77,7 +77,7 @@ Add the following code on line 5
 ```
 
 The resulting code should look like this:
-```
+```javascript
 const _ = require('lodash');
 
 module.exports = async (ctx, next) => {
