@@ -1,5 +1,5 @@
 'use strict';
-
+const _ = require('lodash')
 const pluginId = require("../pluginId")
 
 const { Magic } = require('@magic-sdk/admin');
@@ -65,12 +65,13 @@ module.exports = {
         return value
     },
     loginWithMagic: async (ctx, useCrypto) => {
-        const MAGIC_KEY = strapi.plugins[pluginId].services[pluginId].getKey()
+        const MAGIC_KEY = await strapi.plugins[pluginId].services[pluginId].getKey()
 
         if(!MAGIC_KEY) {
             console.log("no key")
             return false
         }
+        console.log("MAGIC_KEY", MAGIC_KEY)
 
         const magic = new Magic(MAGIC_KEY);
 
@@ -79,23 +80,19 @@ module.exports = {
         try{
             const token = retrieveJWTToken(ctx);
             const issuer = await magic.token.getIssuer(token);
-            console.log('issuer', issuer);
             const magicUser = await magic.users.getMetadataByIssuer(issuer);
-            console.log('magicUser', magicUser);
+
 
             ctx.state.user = await strapi.plugins['users-permissions'].services.user.fetch({
-                address: magicUser.publicAddress
+                email: useCrypto ? magicUser.publicAddress : magicUser.email
             });
-
-            console.log("ctx.state.user")
-
-            const roles = await strapi.plugins['users-permissions'].services.userspermissions.getRoles();
-            const authRoles = roles[0];
 
 
             if(!ctx.state.user){
                 console.log('There was no user, creating it');
                 try{
+                    const roles = await strapi.plugins['users-permissions'].services.userspermissions.getRoles();
+                    const authRoles = roles[0]; //Authenticated role
                     ctx.state.user = await strapi.plugins['users-permissions'].services.user.add({
                         username: useCrypto ? magicUser.publicAddress : magicUser.email,
                         email: useCrypto ? magicUser.publicAddress : magicUser.email,
@@ -107,13 +104,11 @@ module.exports = {
                     console.log('Exception in user creation in permissions', err);
                 }
             }
-
-            authException = null;
-
             console.log('ctx.state.user?', ctx.state.user);
+            return ctx.state.user
+
         } catch(err){
-            authException = err;
-            throw authException
+            throw err
         }
     }
 };

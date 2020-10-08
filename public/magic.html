@@ -1,0 +1,28 @@
+<h1>Magic Login Test</h1>
+<p>A basic test that allows you to try magic <br/>
+    Add your email to retrieve a jwt and use it to test
+</p>
+<form id="form">
+    <input  id="input" type="email" />
+    <buton>Click here for JWT</buton>
+</form>
+<div id="result">
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/magic-sdk/dist/magic.js"></script>
+<script>
+    const API_KEY = "pk_test_883C056C3A6AD3AF" //Your Public Key
+    
+    const m = new Magic(API_KEY);
+
+    const form = document.querySelector("#form")
+    const input = document.querySelector("#input")
+    const result = document.querySelector("#result")
+    form.onsubmit = async (e) => {
+        e.preventDefault()
+        const email = input.value
+        const jwt = await m.auth.loginWithMagicLink({email})
+        result.innerText = jwt
+    }
+</script>
