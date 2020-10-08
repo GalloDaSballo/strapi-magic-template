@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useEffect, memo } from 'react';
-import pluginId from '../../pluginId';
+import pluginId from '../../../../pluginId';
 import {
   request
 } from 'strapi-helper-plugin'

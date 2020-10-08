@@ -1,18 +1,12 @@
 'use strict';
 
+const pluginId = require("../pluginId")
+
 /**
  * magic-v1.js controller
  *
  * @description: A set of functions called "actions" of the `magic-v1` plugin.
  */
-
-const getStore =  () => (
-  strapi.store({
-    environment: strapi.config.environment,
-    type: 'plugin',
-    name: 'magic'
-}))
-
 module.exports = {
   /**
    * Retrieve secret key and return it
@@ -24,9 +18,9 @@ module.exports = {
       return ctx.unauthorized("Only admins")
     }
 
-    const pluginStore = getStore()
-
-    const sk = await pluginStore.get({ key: 'sk' })
+    
+    console.log("pluginId", pluginId)
+    const sk = await strapi.plugins[pluginId].services[pluginId].getKey() 
 
     ctx.send({
       sk: sk ? sk : ''
@@ -48,9 +42,7 @@ module.exports = {
       return ctx.throw(400, "Please provide a secret key")
     }
 
-    const pluginStore = getStore()
-
-    const result = await pluginStore.set({ key: 'sk', value: sk })
+    const result = await strapi.plugins[pluginId].services[pluginId].setKey(sk) 
 
     ctx.send({
       result
