@@ -2,8 +2,16 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/",
-      "handler": "magic-v1.index",
+      "path": "/settings",
+      "handler": "magic-v1.retrieveSettings",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/settings",
+      "handler": "magic-v1.updateSettings",
       "config": {
         "policies": []
       }
