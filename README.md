@@ -1,6 +1,6 @@
-# strapi-magic-dev
+# strapi-magic-template
 
-Temporary folder as we develop the Magic Plugin that allows using Magic.Link for making authenticated requests to Strapi
+Template folder as we develop the Magic Plugin that allows using Magic.Link for making authenticated requests to Strapi
 
 ## Installation
 TEMP STEPS
