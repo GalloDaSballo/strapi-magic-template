@@ -67,9 +67,9 @@ module.exports = {
     loginWithMagic: async (ctx, useCrypto) => {
         const MAGIC_KEY = await strapi.plugins[pluginId].services[pluginId].getKey()
 
-        if(!MAGIC_KEY) {
+        if(!MAGIC_KEY || !MAGIC_KEY.length) {
             console.log("no key")
-            return false
+            throw {message: "No magic key, please set it up in the admin panel"}
         }
         console.log("MAGIC_KEY", MAGIC_KEY)
 

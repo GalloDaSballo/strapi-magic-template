@@ -7,7 +7,7 @@ module.exports = async (ctx, next) => {
   try{
     await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
     } catch (err) {
-    return handleErrors(ctx, err, 'unauthorized');
+      console.log("Exception in logging in with magic err", err)
   }
   /** END With Magic Changes */
 
