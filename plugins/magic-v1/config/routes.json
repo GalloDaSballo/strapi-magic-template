@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "magic-v1.index",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

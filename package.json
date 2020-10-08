@@ -1,0 +1,37 @@
+{
+  "name": "magic-plugin-dev",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "strapi": "3.2.1",
+    "strapi-admin": "3.2.1",
+    "strapi-utils": "3.2.1",
+    "strapi-plugin-content-type-builder": "3.2.1",
+    "strapi-plugin-content-manager": "3.2.1",
+    "strapi-plugin-users-permissions": "3.2.1",
+    "strapi-plugin-email": "3.2.1",
+    "strapi-plugin-upload": "3.2.1",
+    "strapi-connector-bookshelf": "3.2.1",
+    "knex": "<0.20.0",
+    "sqlite3": "latest"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "28c99e31-d4fc-4d40-bf65-a5db3c53e459"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
