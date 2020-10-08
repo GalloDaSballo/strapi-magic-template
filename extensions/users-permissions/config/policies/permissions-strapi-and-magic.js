@@ -23,13 +23,17 @@ module.exports = async (ctx, next) => {
         'users-permissions'
       ].services.user.fetchAuthenticatedUser(id);
     } catch (err) {
-        /** With Magic Changes */
+        //Change this
+        //return handleErrors(ctx, err, 'unauthorized');
+
+        //To this section
+        /** Add this code */
         try{
             await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
         } catch (err) {
             return handleErrors(ctx, err, 'unauthorized');
         }
-        /** END With Magic Changes */
+        /** Yes, just this little piece */
 
     }
 

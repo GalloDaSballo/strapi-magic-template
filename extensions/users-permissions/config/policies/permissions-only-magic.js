@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-//Rename this to permissions.js to use both strapi and magic for authentication
+//Rename this to permissions to exclusively use magic.link for auth
 
 module.exports = async (ctx, next) => {
   let role;
@@ -12,25 +12,9 @@ module.exports = async (ctx, next) => {
 
   if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
     try {
-      const { id } = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx);
-
-      if (id === undefined) {
-        throw new Error('Invalid token: Token did not contain required fields');
-      }
-
-      // fetch authenticated user
-      ctx.state.user = await strapi.plugins[
-        'users-permissions'
-      ].services.user.fetchAuthenticatedUser(id);
+      await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
     } catch (err) {
-        /** With Magic Changes */
-        try{
-            await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-        } catch (err) {
-            return handleErrors(ctx, err, 'unauthorized');
-        }
-        /** END With Magic Changes */
-
+      return handleErrors(ctx, err, 'unauthorized');
     }
 
     if (!ctx.state.user) {
