@@ -3,7 +3,8 @@
 Template folder as we develop the Magic Plugin that allows using Magic.Link for making authenticated requests to Strapi
 
 ## Installation
-### Make you have yarn!
+### Make sure you have yarn!
+
 https://classic.yarnpkg.com/en/docs/install/
 
 Clone the Repo
