@@ -80,22 +80,20 @@ module.exports = {
      * If useCrypto is false we will use the email as primary key
      */
     loginWithMagic: async (ctx, useCrypto) => {
-
         /** If user is already logged in, with current setup this happens only if you are in /admin */
         if(ctx.state.user){
             return true
         }
-
-        const MAGIC_KEY = await strapi.plugins[pluginId].services[pluginId].getKey()
-
-        if(!MAGIC_KEY || !MAGIC_KEY.length) {
-            console.log("no key")
-            throw { message: "No magic key, please set it up in the admin panel" }
-        }
-        const magic = new Magic(MAGIC_KEY);
-
         /** USE MAGIC LINK */
         try{
+            const MAGIC_KEY = await strapi.plugins[pluginId].services[pluginId].getKey()
+
+            if(!MAGIC_KEY || !MAGIC_KEY.length) {
+                console.log("no key")
+                throw { message: "No magic key, please set it up in the admin panel" }
+            }
+            const magic = new Magic(MAGIC_KEY);
+
             const token = retrieveJWTToken(ctx);
             
             await magic.token.validate(token); //This will throw if the token is not valid
@@ -133,9 +131,8 @@ module.exports = {
                 }
             }
             return ctx.state.user
-
         } catch(err){
-            throw err
+            return null
         }
     }
 };

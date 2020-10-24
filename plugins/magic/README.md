@@ -2,19 +2,22 @@
 
 Magic Plugin Integration for Strapi.
 
-Magic is also known as Magic.Link
+Use Magic.Links for your Strapi Users!
+
+Allows you to store your Magic Secret Key
+1 Line integration 
+Allow authenticated API request with a bearer token issue by Magic.
 
 ## Installation
 
-With Npm
+With npm
 ``` 
 npm i strapi-plugin-magic
 ```
 
-With Yarn
+With yarn
 ```
 yarn add strapi-plugin-magic
-
 ```
 
 ## Set up
@@ -49,15 +52,11 @@ module.exports = async (ctx, next) => {
   if (ctx.state.user) {
 ```
 
-Add the following code on line 5
+Add the following code on line 5 of `/extensions/users-permissions/config/policies/permissions.js`
 ```javascript
-  /** With Magic Changes */
-  try{
+    /** With Magic Changes */
     await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-    } catch (err) {
-      console.log("Exception in logging in with magic err", err)
-  }
-  /** END With Magic Changes */
+    /** END With Magic Changes */
   
 ```
 
@@ -69,11 +68,7 @@ module.exports = async (ctx, next) => {
   let role;
 
   /** With Magic Changes */
-  try{
-    await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-    } catch (err) {
-    console.log("Exception in logging in with magic err", err)
-  }
+  await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
   /** END With Magic Changes */
 
   if (ctx.state.user) {
