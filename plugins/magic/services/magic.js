@@ -80,6 +80,12 @@ module.exports = {
      * If useCrypto is false we will use the email as primary key
      */
     loginWithMagic: async (ctx, useCrypto) => {
+
+        /** If user is already logged in, with current setup this happens only if you are in /admin */
+        if(ctx.state.user){
+            return true
+        }
+
         const MAGIC_KEY = await strapi.plugins[pluginId].services[pluginId].getKey()
 
         if(!MAGIC_KEY || !MAGIC_KEY.length) {
