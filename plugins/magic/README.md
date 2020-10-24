@@ -15,7 +15,7 @@ yarn add strapi-plugin-magic
 ```
 
 ## Set up
-1) Rebuild admin
+### Rebuild admin
 ```
 npm run build
 ```
@@ -24,9 +24,11 @@ npm run build
 yarn build
 ```
 
-2) Add SK in Admin
+### Add SK in Admin
+Just open /admin and click on Magic, then paste your SK
 
-3) Override default permission so that Magic can generate and manage the user for you
+### Override default permission so that Magic can generate and manage the user for you
+See section below
 
 ## Manual installation:
 Create the file 
