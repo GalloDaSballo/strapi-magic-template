@@ -5,43 +5,41 @@ Magic Plugin Integration for Strapi.
 Use Magic.Links for your Strapi Users!
 
 Allows you to store your Magic Secret Key
+
 1 Line integration 
+
 Allow authenticated API request with a bearer token issue by Magic.
 
 ## Installation
-
-With npm
 ``` 
 npm i strapi-plugin-magic
 ```
 
-With yarn
-```
-yarn add strapi-plugin-magic
+## Set up
+
+### Install
+``` 
+npm i strapi-plugin-magic
 ```
 
-## Set up
 ### Rebuild admin
 ```
 npm run build
-```
-
-```
-yarn build
 ```
 
 ### Add SK in Admin
 Just open /admin and click on Magic, then paste your SK
 
 ### Override default permission so that Magic can generate and manage the user for you
-See section below
-
-## Manual installation:
 Create the file 
 `/extensions/users-permissions/config/policies/permissions.js`
 
 Copy the "normal version"
-https://github.com/strapi/strapi/blob/master/packages/strapi-plugin-users-permissions/config/policies/permissions.js
+https://raw.githubusercontent.com/strapi/strapi/master/packages/strapi-plugin-users-permissions/config/policies/permissions.js
+
+This file allows you to customize the way in which the user get's logged in
+You will add 1 line of code to log in the user by using a magic token 
+
 The file looks like this
 ```
 const _ = require('lodash');
@@ -79,8 +77,33 @@ module.exports = async (ctx, next) => {
   //etc...
 ```
 
-### More info on this
+## More info on the setup
+`await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)` is a new function that will create or find a user with the corresponding email (or publicAddress) if used.
+This works because, for Strapi, the user is logged in as long as ctx.state.user is defined.
+
+Read the docs here:
 https://strapi.io/documentation/v3.x/guides/jwt-validation.html#customize-the-jwt-validation-function
+
+## Making an Authenticated Magic Request
+You can test the integration by retrieving a Magic ID Token
+```javascript
+//By logging in
+const token = await m.auth.loginWithMagicLink({ email: 'hello@example.com' });
+
+//By requesting the token, works if you are already logged in
+const token = await m.user.getIdToken();
+```
+
+Then make a request
+```javascript
+fetch(`${STRAPI_URL}/articles`, { 
+   method: 'post', 
+   headers: new Headers({
+     'Authorization': 'Bearer `${token}`, 
+   }), 
+   body: JSON.stringify({title: "He turned himself into a pickle"})
+ });
+```
 
 ## Video
 Coming once code is done
