@@ -4,11 +4,11 @@ Magic Plugin Integration for Strapi.
 
 Use Magic.Links for your Strapi Users!
 
-Allows you to store your Magic Secret Key
+✨ Allows you to store your Magic Secret Key
 
-1 Line integration 
+✨ 1 Line integration 
 
-Allow authenticated API request with a bearer token issue by Magic.
+✨ Allow authenticated API request with a bearer token issue by Magic.
 
 ## Installation
 ``` 
