@@ -84,10 +84,8 @@ module.exports = {
 
         if(!MAGIC_KEY || !MAGIC_KEY.length) {
             console.log("no key")
-            throw {message: "No magic key, please set it up in the admin panel"}
+            throw { message: "No magic key, please set it up in the admin panel" }
         }
-        console.log("MAGIC_KEY", MAGIC_KEY)
-
         const magic = new Magic(MAGIC_KEY);
 
         /** USE MAGIC LINK */
@@ -99,11 +97,9 @@ module.exports = {
             const issuer = await magic.token.getIssuer(token);
             const magicUser = await magic.users.getMetadataByIssuer(issuer);
 
-
             ctx.state.user = await strapi.plugins['users-permissions'].services.user.fetch({
                 email: useCrypto ? magicUser.publicAddress : magicUser.email
             });
-
 
             if(!ctx.state.user){
                 try{
