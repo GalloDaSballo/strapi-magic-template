@@ -64,11 +64,7 @@ module.exports = async (ctx, next) => {
 Add the following code on line 5
 ```javascript
   /** With Magic Changes */
-  try{
-    await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-    } catch (err) {
-      console.log("Exception in logging in with magic err", err)
-  }
+  await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
   /** END With Magic Changes */
   
 ```
@@ -81,11 +77,7 @@ module.exports = async (ctx, next) => {
   let role;
 
   /** With Magic Changes */
-  try{
-    await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-    } catch (err) {
-    console.log("Exception in logging in with magic err", err)
-  }
+  await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
   /** END With Magic Changes */
 
   if (ctx.state.user) {
@@ -94,6 +86,26 @@ module.exports = async (ctx, next) => {
   }
 
   //etc...
+```
+
+You can test the integration by retrieving a Magic ID Token
+```javascript
+//By logging in
+const token = await m.auth.loginWithMagicLink({ email: 'hello@example.com' });
+
+//By requesting the token, works if you are already logged in
+const token = await m.user.getIdToken();
+```
+
+Then make a request
+```javascript
+fetch(`${STRAPI_URL}/articles`, { 
+   method: 'post', 
+   headers: new Headers({
+     'Authorization': 'Bearer `${token}`, 
+   }), 
+   body: JSON.stringify({title: "He turned himself into a pickle"})
+ });
 ```
 
 ### More info on this
