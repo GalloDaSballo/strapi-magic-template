@@ -91,9 +91,11 @@ module.exports = {
         const magic = new Magic(MAGIC_KEY);
 
         /** USE MAGIC LINK */
-        console.log('Trying with magic');
         try{
             const token = retrieveJWTToken(ctx);
+            
+            await magic.token.validate(token); //This will throw if the token is not valid
+
             const issuer = await magic.token.getIssuer(token);
             const magicUser = await magic.users.getMetadataByIssuer(issuer);
 
@@ -104,14 +106,23 @@ module.exports = {
 
 
             if(!ctx.state.user){
-                console.log('There was no user, creating it');
                 try{
-                    const roles = await strapi.plugins['users-permissions'].services.userspermissions.getRoles();
-                    const authRoles = roles[0]; //Authenticated role
+                    const advanced = await strapi
+                        .store({
+                            environment: '',
+                            type: 'plugin',
+                            name: 'users-permissions',
+                            key: 'advanced',
+                        })
+                        .get();
+                    const defaultRole = await strapi
+                        .query('role', 'users-permissions')
+                        .findOne({ type: advanced.default_role }, []);
+
                     ctx.state.user = await strapi.plugins['users-permissions'].services.user.add({
                         username: useCrypto ? magicUser.publicAddress : magicUser.email,
                         email: useCrypto ? magicUser.publicAddress : magicUser.email,
-                        role: authRoles,
+                        role: defaultRole,
                         confirmed: true,
                         provider: 'magic'
                     });
@@ -119,7 +130,6 @@ module.exports = {
                     console.log('Exception in user creation in permissions', err);
                 }
             }
-            console.log('ctx.state.user?', ctx.state.user);
             return ctx.state.user
 
         } catch(err){
