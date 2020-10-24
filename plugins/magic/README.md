@@ -98,9 +98,9 @@ Then make a request
 fetch(`${STRAPI_URL}/articles`, { 
    method: 'post', 
    headers: new Headers({
-     'Authorization': 'Bearer `${token}`, 
+     'Authorization': `Bearer ${token}`, 
    }), 
-   body: JSON.stringify({title: "He turned himself into a pickle"})
+   body: JSON.stringify({title: "He turns himself into a pickle!"})
  });
 ```
 
