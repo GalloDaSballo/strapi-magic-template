@@ -52,10 +52,9 @@ module.exports = async (ctx, next) => {
 
 Add the following code on line 5 of `/extensions/users-permissions/config/policies/permissions.js`
 ```javascript
-    /** With Magic Changes */
-    await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-    /** END With Magic Changes */
-  
+/** With Magic Changes */
+await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
+/** END With Magic Changes */
 ```
 
 The resulting code should look like this:
