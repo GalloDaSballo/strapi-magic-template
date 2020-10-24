@@ -3,7 +3,10 @@
 Template folder as we develop the Magic Plugin that allows using Magic.Link for making authenticated requests to Strapi
 
 ## Installation
-TEMP STEPS
+### Make you have yarn!
+https://classic.yarnpkg.com/en/docs/install/
+
+Clone the Repo
 ```
 git clone https://github.com/GalloDaSballo/strapi-magic-dev/
 ```
@@ -11,13 +14,6 @@ git clone https://github.com/GalloDaSballo/strapi-magic-dev/
 Install Strapi Deps
 ``` 
 yarn
-```
-
-Install Plugin Deps
-```
-cd plugins/magic-v1
-yarn
-cd ../..
 ```
 
 Run Strapi
