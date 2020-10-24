@@ -1,5 +1,8 @@
 # strapi-plugin-magic
 
+Magic Plugin Integration for Strapi.
+
+Magic is also known as Magic.Link
 
 ## Installation
 
@@ -90,6 +93,9 @@ Coming once code is done
 ## More
 Plugin Sponsored by
 https://magic.link/
+
+Development By
+https://entreprenerd.xyz
 
 Learn to Code Strapi Plugins:
 https://www.youtube.com/watch?v=r7EdFVSbZSA&t=1s&ab_channel=AlextheEntreprenerd
