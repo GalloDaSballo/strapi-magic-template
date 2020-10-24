@@ -43,7 +43,9 @@ const retrieveJWTToken = (ctx) => {
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
 
-
+/**
+ * Retrieve the strapi data storage for the plugin
+ */
 const getStore =  () => (
   strapi.store({
     environment: strapi.config.environment,
@@ -52,18 +54,31 @@ const getStore =  () => (
 }))
 
 module.exports = {
+    /**
+     * Update the Magic Private Key
+     */
     setKey: async (sk) => {
         const pluginStore = getStore()
         pluginStore.set({ key: 'sk', value: sk })
 
     },
 
+    /**
+     * Retrieve the Private Key
+     */
     getKey: async () => {
         const pluginStore = getStore()
         const value = pluginStore.get({ key: 'sk'})
 
         return value
     },
+    /**
+     * Given the Context uses the Magic SDK to verify if the current request was done with a valid and active Bearer Token
+     * @param {any} ctx - Request Context
+     * @param {boolean} useCrypto - Whether to use the address as primary key.
+     * If useCrypto is true we will be using the publicAddress as primary key
+     * If useCrypto is false we will use the email as primary key
+     */
     loginWithMagic: async (ctx, useCrypto) => {
         const MAGIC_KEY = await strapi.plugins[pluginId].services[pluginId].getKey()
 
