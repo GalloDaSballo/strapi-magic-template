@@ -18,8 +18,6 @@ module.exports = {
       return ctx.unauthorized("Only admins")
     }
 
-    
-    console.log("pluginId", pluginId)
     const sk = await strapi.plugins[pluginId].services[pluginId].getKey() 
 
     ctx.send({
