@@ -6,7 +6,7 @@ const { Magic } = require('@magic-sdk/admin');
 
 /**
  * Given a ctx, retrieve the bearer token
- * @param  ctx 
+ * @param {any} ctx
  */
 const retrieveJWTToken = (ctx) => {
     const params = _.assign({}, ctx.request.body, ctx.request.query);
@@ -56,6 +56,7 @@ const getStore =  () => (
 module.exports = {
     /**
      * Update the Magic Private Key
+     * @param {string} sk - Magic Secret Key
      */
     setKey: async (sk) => {
         const pluginStore = getStore()
@@ -65,6 +66,7 @@ module.exports = {
 
     /**
      * Retrieve the Private Key
+     * @returns {string} sk - Magic Secret Key
      */
     getKey: async () => {
         const pluginStore = getStore()
@@ -106,6 +108,7 @@ module.exports = {
             });
 
             if(!ctx.state.user){
+                //Create the user
                 try{
                     const advanced = await strapi
                         .store({
