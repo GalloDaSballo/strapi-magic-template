@@ -104,6 +104,20 @@ fetch(`${STRAPI_URL}/articles`, {
  });
 ```
 
+## Additional Functionality - Decentralized ID (Ethereum)
+Magic.Link allows you to create Ethereum (and more) wallets, as soon as the user logs in.
+If you prefer using their public address for authentication (promoting privacy, recommended for Dapps), you can use `useCrypto`
+```javascript
+await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx, true) //Second parameter, called, useCrypto
+```
+
+When you set `useCrypto` to true, magic will create and find users by their address rather than by their email
+
+All of the code you use will be the same as this field (email or username) will be consistent.
+
+Read more about this feature here:
+https://docs.magic.link/decentralized-id
+
 ## Video
 Coming once code is done
 
