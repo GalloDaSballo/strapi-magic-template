@@ -1,11 +1,11 @@
 {
   "name": "strapi-plugin-magic",
-  "version": "0.2.5",
-  "description": "Store your private key safely and use it for magic authentication",
+  "version": "0.2.6",
+  "description": "One Line Magic.Link Integration with Strapi, also store your PK in Admin",
   "strapi": {
     "name": "magic",
     "icon": "magic",
-    "description": "Store your private key safely and use it for magic authentication"
+    "description": "One Line Magic.Link Integration with Strapi, also store your PK in Admin"
   },
   "homepage": "https://github.com/GalloDaSballo/strapi-magic-template",
   "dependencies": {
