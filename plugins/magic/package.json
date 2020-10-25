@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-magic",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Store your private key safely and use it for magic authentication",
   "strapi": {
     "name": "magic",
