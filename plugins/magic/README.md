@@ -108,10 +108,10 @@ fetch(`${STRAPI_URL}/articles`, {
 Coming once code is done
 
 ## More
-Plugin Sponsored by
+Plugin Sponsored by Magic Labs, Inc
 https://magic.link/
 
-Development By
+Development By Alex The Entreprenerd
 https://entreprenerd.xyz
 
 Learn to Code Strapi Plugins:

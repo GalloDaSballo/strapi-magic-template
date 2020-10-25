@@ -8,7 +8,7 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "postinstall": "cd plugins/magic && yarn"
+    "postinstall": "cd plugins/magic && npm i && cd .. && npm run build"
   },
   "devDependencies": {},
   "dependencies": {

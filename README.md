@@ -3,41 +3,42 @@
 Template folder as we develop the Magic Plugin that allows using Magic.Link for making authenticated requests to Strapi
 
 ## Installation
-### Make sure you have yarn!
 
-https://classic.yarnpkg.com/en/docs/install/
-
-Clone the Repo
+### Clone the Repo
 ```
 git clone https://github.com/GalloDaSballo/strapi-magic-dev/
 ```
 
-Install Strapi Deps
+### Install Strapi Deps
 ``` 
-yarn
+npm i
 ```
 
-Run Strapi
+There's a postinstall script that will install dependencies for the plugin and rebuild the admin
+Check the package.json for more info
+
+### Run Strapi
 ```
-yarn develop
+npm run develop
 ```
 
-
-## Architecture
-Simple Plugin which name will be strapi-plugin-magic
-This way the plugin will load automatically
-
-The plugin will expose a service that will verify if the given request belongs to a magic link user, abstracting away the Magic Admin SDK
-
-The Magic Plugin has a service you can use to verify if the bearer token belongs to a magic link related request.
-
-After installing the plugin, use `loginWithMagic` like so:
-```javascript
-await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-```
 
 ## Set up
-In order for Magic to work, you'll have to Customize the JWT Validation Function
+This repo is already set up for you
+
+Open /admin
+Add your Magic SK
+
+Open /public/magic.html
+Add you Magic PK
+
+Visit http://localhost:1337/magic.html
+Add your email
+
+Use the JWT to make an authenticated request
+
+## Architecture
+In order for Magic to work, you have to Customize the JWT Validation Function
 
 Check `/extensions/users-permissions/config/policies` in this repo
 The file `permissions.js` shows you the easiest way to set this up, you can't go wrong with this one
@@ -111,8 +112,29 @@ fetch(`${STRAPI_URL}/articles`, {
 ### More info on this
 https://strapi.io/documentation/v3.x/guides/jwt-validation.html#customize-the-jwt-validation-function
 
-## Video
-Coming once code is done
+## Architecture
+The Magic Plugin allows you to store your Secret Key
+
+The Magic Plugine exposes a service you can use to verify if the bearer token belongs to a magic link related request.
+
+After installing the plugin, use `loginWithMagic` like so:
+```javascript
+await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
+```
+
+The service will attach the (Created or Retrieved user with the specific email) to the ctx.state.user object, hence logging the user in
+
+## Security Considerations
+
+### This plugin creates users automatically
+This plugin automatically registers new users when they make their first request.
+For the majority of website, this is a advantage.
+
+For some websites it may not, if you do not wish to allow users to register via Magic Link, but only log in (using magic link as proof that the user can use that specific email), then submit an Issue or seek 1-1 mentoring for a custom solution.
+
+### You are responsible for updating the permissions.js file
+We purposefully have you set it up so you can more granularly customize the file.
+Check periodicaly here and in the (https://github.com/strapi/strapi)[Strapi Monorepo] for changes to permissions.js
 
 ## More
 Plugin Sponsored by
