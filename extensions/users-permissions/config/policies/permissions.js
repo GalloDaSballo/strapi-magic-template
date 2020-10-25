@@ -4,11 +4,7 @@ module.exports = async (ctx, next) => {
   let role;
 
   /** With Magic Changes */
-  try{
-    await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-    } catch (err) {
-      console.log("Exception in logging in with magic err", err)
-  }
+  await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
   /** END With Magic Changes */
 
   if (ctx.state.user) {
