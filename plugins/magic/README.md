@@ -10,6 +10,9 @@ Use Magic.Links for your Strapi Users!
 
 ✨ Allow authenticated API request with a bearer token issue by Magic.
 
+## Video Guide
+https://youtu.be/dcRupfuPa1U
+
 ## Installation
 ``` 
 npm i strapi-plugin-magic

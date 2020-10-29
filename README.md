@@ -2,6 +2,9 @@
 
 Template folder as we develop the Magic Plugin that allows using Magic.Link for making authenticated requests to Strapi
 
+## Video Guide
+https://youtu.be/dcRupfuPa1U
+
 ## Installation
 
 ### Clone the Repo
