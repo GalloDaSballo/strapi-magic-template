@@ -79,6 +79,9 @@ module.exports = async (ctx, next) => {
   //etc...
 ```
 
+## Demo Repo
+https://github.com/GalloDaSballo/strapi-magic-demo
+
 ## More info on the setup
 `await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)` is a new function that will create or find a user with the corresponding email (or publicAddress) if used.
 This works because, for Strapi, the user is logged in as long as ctx.state.user is defined.

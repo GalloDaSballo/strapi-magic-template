@@ -112,6 +112,9 @@ fetch(`${STRAPI_URL}/articles`, {
  });
 ```
 
+## Demo Repo
+https://github.com/GalloDaSballo/strapi-magic-demo
+
 ### More info on this
 https://strapi.io/documentation/v3.x/guides/jwt-validation.html#customize-the-jwt-validation-function
 

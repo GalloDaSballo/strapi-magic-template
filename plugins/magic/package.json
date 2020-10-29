@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-magic",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "One Line Magic.Link Integration with Strapi, also store your PK in Admin",
   "strapi": {
     "name": "magic",
