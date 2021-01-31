@@ -32,6 +32,8 @@ This repo is already set up for you
 Open /admin
 Add your Magic SK
 
+You can also add you Magic SK through a .env file, using the key MAGIC_KEY, see .env.example
+
 Open /public/magic.html
 Add you Magic PK
 
