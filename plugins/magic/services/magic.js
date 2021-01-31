@@ -2,38 +2,38 @@
 const _ = require('lodash')
 const pluginId = require("../pluginId")
 
-const { Magic } = require('@magic-sdk/admin');
+const { Magic } = require('@magic-sdk/admin')
 
 /**
  * Given a ctx, retrieve the bearer token
  * @param {any} ctx
  */
 const retrieveJWTToken = (ctx) => {
-    const params = _.assign({}, ctx.request.body, ctx.request.query);
+    const params = _.assign({}, ctx.request.body, ctx.request.query)
 
-    let token = '';
+    let token = ''
 
     if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
-        const parts = ctx.request.header.authorization.split(' ');
+        const parts = ctx.request.header.authorization.split(' ')
 
         if (parts.length === 2) {
             const scheme = parts[0];
             const credentials = parts[1];
             if (/^Bearer$/i.test(scheme)) {
-                token = credentials;
+                token = credentials
             }
         } else {
             throw new Error(
                 'Invalid authorization header format. Format is Authorization: Bearer [token]'
-            );
+            )
         }
     } else if (params.token) {
-        token = params.token;
+        token = params.token
     } else {
-        throw new Error('No authorization header was found');
+        throw new Error('No authorization header was found')
     }
 
-    return (token);
+    return (token)
 };
 
 
@@ -59,9 +59,11 @@ module.exports = {
      * @param {string} sk - Magic Secret Key
      */
     setKey: async (sk) => {
+        if(process.env.MAGIC_KEY){
+            throw new Error("MAGIC_KEY is Injected by .env")
+        }
         const pluginStore = getStore()
         pluginStore.set({ key: 'sk', value: sk })
-
     },
 
     /**
@@ -71,6 +73,9 @@ module.exports = {
     getKey: async () => {
         const pluginStore = getStore()
         const value = pluginStore.get({ key: 'sk'})
+        if(process.env.MAGIC_KEY){
+            return process.env.MAGIC_KEY
+        }
 
         return value
     },
@@ -91,21 +96,20 @@ module.exports = {
             const MAGIC_KEY = await strapi.plugins[pluginId].services[pluginId].getKey()
 
             if(!MAGIC_KEY || !MAGIC_KEY.length) {
-                console.log("no key")
-                throw { message: "No magic key, please set it up in the admin panel" }
+                throw new Error("No magic key, please set it up in the admin panel")
             }
-            const magic = new Magic(MAGIC_KEY);
+            const magic = new Magic(MAGIC_KEY)
 
-            const token = retrieveJWTToken(ctx);
+            const token = retrieveJWTToken(ctx)
             
-            await magic.token.validate(token); //This will throw if the token is not valid
+            await magic.token.validate(token) //This will throw if the token is not valid
 
-            const issuer = await magic.token.getIssuer(token);
-            const magicUser = await magic.users.getMetadataByIssuer(issuer);
+            const issuer = await magic.token.getIssuer(token)
+            const magicUser = await magic.users.getMetadataByIssuer(issuer)
 
             ctx.state.user = await strapi.plugins['users-permissions'].services.user.fetch({
                 email: useCrypto ? magicUser.publicAddress : magicUser.email
-            });
+            })
 
             if(!ctx.state.user){
                 //Create the user
@@ -117,10 +121,10 @@ module.exports = {
                             name: 'users-permissions',
                             key: 'advanced',
                         })
-                        .get();
+                        .get()
                     const defaultRole = await strapi
                         .query('role', 'users-permissions')
-                        .findOne({ type: advanced.default_role }, []);
+                        .findOne({ type: advanced.default_role }, [])
 
                     ctx.state.user = await strapi.plugins['users-permissions'].services.user.add({
                         username: useCrypto ? magicUser.publicAddress : magicUser.email,
@@ -128,9 +132,9 @@ module.exports = {
                         role: defaultRole,
                         confirmed: true,
                         provider: 'magic'
-                    });
+                    })
                 } catch(err){
-                    console.log('Exception in user creation in permissions', err);
+                    console.log('Exception in user creation in permissions', err)
                 }
             }
             return ctx.state.user

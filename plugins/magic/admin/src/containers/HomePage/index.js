@@ -17,15 +17,19 @@ const HomePage = () => {
   const [sk, setSk] = useState('')
 
   useEffect(() => {
-    const loadSk = async () => {
-      const response = await request(`/${pluginId}/settings`, {
-        method: 'GET'
-      })
+    try{
+      const loadSk = async () => {
+        const response = await request(`/${pluginId}/settings`, {
+          method: 'GET'
+        })
 
-      const {sk} = response
-      setSk(sk)
+        const {sk} = response
+        setSk(sk)
+      }
+      loadSk()
+    } catch (err) {
+      strapi.notification.error(err.toString())
     }
-    loadSk()
   }, [])
 
   const updatedSk = async (e) => {
@@ -38,7 +42,7 @@ const HomePage = () => {
       })
       strapi.notification.success('Success')
     } catch(err){
-      strapi.notification.error(err.toString())
+      strapi.notification.error(err.response && err.response.payload.message || err.toString())
     }
     strapi.unlockApp()
   }

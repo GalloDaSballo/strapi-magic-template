@@ -14,7 +14,9 @@ module.exports = {
   retrieveSettings: async (ctx) => {
     const {user} = ctx.state
 
-    if(user.roles[0].id != 1){
+    if(user.roles[0].name !== 'Super Admin'){
+      console.log("MAGIC Please only set the PK with a Super Admin Account")
+      console.log("Your Role", JSON.stringify(user.roles))
       return ctx.unauthorized("Only admins")
     }
 
@@ -32,18 +34,23 @@ module.exports = {
     const {sk} = ctx.request.body
 
     //Ensure user is admin
-    if(user.roles[0].id != 1){
+    if(user.roles[0].name !== 'Super Admin'){
+      console.log("MAGIC Please only set the PK with a Super Admin Account")
+      console.log("Your Role", JSON.stringify(user.roles))
       return ctx.unauthorized("Only administrators allowed!")
     }
 
     if(!sk){
       return ctx.throw(400, "Please provide a secret key")
     }
+    try{
+      const result = await strapi.plugins[pluginId].services[pluginId].setKey(sk) 
 
-    const result = await strapi.plugins[pluginId].services[pluginId].setKey(sk) 
-
-    ctx.send({
-      result
-    })
+      ctx.send({
+        result
+      })
+    } catch(err) {
+      return ctx.throw(400, err.message)
+    }
   }
 };
