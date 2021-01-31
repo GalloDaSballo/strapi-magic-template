@@ -30,6 +30,18 @@ npm i strapi-plugin-magic
 npm run build
 ```
 
+### Inject SK through .env
+
+Create a .env file and add your PK with key MAGIC_KEY
+
+```
+MAGIC_KEY=pk_123
+
+```
+
+
+See .env.example in template
+
 ### Add SK in Admin
 Just open /admin and click on Magic, then paste your SK
 
