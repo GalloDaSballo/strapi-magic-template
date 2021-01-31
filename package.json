@@ -15,15 +15,15 @@
     "eslint": "^7.12.0",
     "knex": "<0.20.0",
     "sqlite3": "latest",
-    "strapi": "3.2.1",
-    "strapi-admin": "3.2.1",
-    "strapi-connector-bookshelf": "3.2.1",
-    "strapi-plugin-content-manager": "3.2.1",
-    "strapi-plugin-content-type-builder": "3.2.1",
-    "strapi-plugin-email": "3.2.1",
-    "strapi-plugin-upload": "3.2.1",
-    "strapi-plugin-users-permissions": "3.2.1",
-    "strapi-utils": "3.2.1"
+    "strapi": "3.4.5",
+    "strapi-admin": "3.4.5",
+    "strapi-connector-bookshelf": "3.4.5",
+    "strapi-plugin-content-manager": "3.4.5",
+    "strapi-plugin-content-type-builder": "3.4.5",
+    "strapi-plugin-email": "3.4.5",
+    "strapi-plugin-upload": "3.4.5",
+    "strapi-plugin-users-permissions": "3.4.5",
+    "strapi-utils": "3.4.5"
   },
   "author": {
     "name": "A Strapi developer"
@@ -32,7 +32,7 @@
     "uuid": "28c99e31-d4fc-4d40-bf65-a5db3c53e459"
   },
   "engines": {
-    "node": ">=10.0.0",
+    "node": ">=12.x.x <= 14.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
