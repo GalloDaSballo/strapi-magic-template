@@ -36,7 +36,6 @@ Create a .env file and add your PK with key MAGIC_KEY
 
 ```
 MAGIC_KEY=sk_123
-
 ```
 
 

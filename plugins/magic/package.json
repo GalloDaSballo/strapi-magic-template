@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-magic",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "description": "One Line Magic.Link Integration with Strapi, also store your PK in Admin",
   "strapi": {
     "name": "magic",
@@ -16,7 +16,7 @@
   "author": {
     "name": "Alex The Entreprenerd",
     "email": "alex@entreprenerd.xyz",
-    "url": "entreprenerd.xyz"
+    "url": "https://entreprenerd.xyz"
   },
   "maintainers": [],
   "engines": {
