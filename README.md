@@ -55,44 +55,55 @@ The file `permissions-only-magic.js` uses exclusively Magic (faster / more consi
 Create the file 
 `/extensions/users-permissions/config/policies/permissions.js`
 
-Copy the "normal version"
+Copy the "normal version", then edit the handling of the catch on line 26: 
 https://github.com/strapi/strapi/blob/master/packages/strapi-plugin-users-permissions/config/policies/permissions.js
+
 The file looks like this
 ```
+'use strict';
+
 const _ = require('lodash');
 
 module.exports = async (ctx, next) => {
   let role;
-  //Add the code here
-  if (ctx.state.user) {
-```
-
-Add the following code on line 5
-```javascript
-  /** With Magic Changes */
-  await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-  /** END With Magic Changes */
-  
-```
-
-The resulting code should look like this:
-```javascript
-const _ = require('lodash');
-
-module.exports = async (ctx, next) => {
-  let role;
-
-  /** With Magic Changes */
-  await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
-  /** END With Magic Changes */
 
   if (ctx.state.user) {
     // request is already authenticated in a different way
     return next();
   }
 
-  //etc...
+  if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+    try {
+      const { id } = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx);
+
+      if (id === undefined) {
+        throw new Error('Invalid token: Token did not contain required fields');
+      }
+
+      // fetch authenticated user
+      ctx.state.user = await strapi.plugins[
+        'users-permissions'
+      ].services.user.fetchAuthenticatedUser(id);
+    } catch (err) {
+      return handleErrors(ctx, err, 'unauthorized'); //EDIT HERE
+    }
 ```
+
+Replace line 26 with the following
+```javascript
+    /** With Magic Changes */
+    try{
+        await strapi.plugins['magic'].services['magic'].loginWithMagic(ctx)
+    } catch (err) {
+        return handleErrors(ctx, err, 'unauthorized');
+    }
+    /** END With Magic Changes */
+```
+
+### The resulting code should look like this:
+
+https://github.com/GalloDaSballo/strapi-magic-template/blob/main/extensions/users-permissions/config/policies/permissions.js
+
 
 You can test the integration by retrieving a Magic ID Token
 ```javascript
