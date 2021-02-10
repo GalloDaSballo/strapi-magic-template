@@ -46,9 +46,8 @@ Use the JWT to make an authenticated request
 In order for Magic to work, you have to Customize the JWT Validation Function
 
 Check `/extensions/users-permissions/config/policies` in this repo
-The file `permissions.js` shows you the easiest way to set this up, you can't go wrong with this one
-The file `permissions-from-docs.js` shows you a similar solution, done by following how the docs would do it
-The file `permissions-strapi-and-magic.js` shows you how to set up both Strapi and Magic for login
+The file `permissions.js` shows you the recommended way to set up the permissions - An older way has a security vulnerability
+The file `permissions-strapi-and-magic.js` shows you how to set up both Strapi and Magic for login (same as permissions.js)
 The file `permissions-only-magic.js` uses exclusively Magic (faster / more consistent than having 2)
 
 ## Manual installation:
